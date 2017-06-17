@@ -3,17 +3,17 @@ import { escapeRegexp } from '../util/common';
 
 @Pipe({name: 'highlight'})
 export class HighlightPipe implements PipeTransform {
-  public transform(value:string, query:string):any {
+  public transform(value: string, query: string): any {
     if (query.length < 1) {
       return value;
     }
 
     if ( query ) {
-        let tagRE    = new RegExp('<[^<>]*>', 'ig');
+        const tagRE    = new RegExp('<[^<>]*>', 'ig');
         // get ist of tags
-        let tagList  = value.match( tagRE );
+        const tagList  = value.match( tagRE );
         // Replace tags with token
-        let tmpValue = value.replace( tagRE, '$!$');
+        const tmpValue = value.replace( tagRE, '$!$');
         // Replace search words
         value = tmpValue.replace(new RegExp(escapeRegexp(query), 'gi'), '<strong style="color:red">$&</strong>');
         // Reinsert HTML
@@ -26,8 +26,8 @@ export class HighlightPipe implements PipeTransform {
 
 }
 
-export function stripTags(input:string):string {
-  let tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
-  let commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
+export function stripTags(input: string): string {
+  const tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
+  const commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
   return input.replace(commentsAndPhpTags, '').replace(tags, '');
 }

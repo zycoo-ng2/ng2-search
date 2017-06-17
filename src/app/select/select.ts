@@ -24,95 +24,95 @@ import { escapeRegexp } from './util/common';
   templateUrl: './select.html'
 })
 export class SelectComponent implements OnInit, ControlValueAccessor {
-  @Input() public allowClear:boolean = false;
-  @Input() public placeholder:string = '';
-  @Input() public idField:string = 'id';
-  @Input() public textField:string = 'text';
-  @Input() public childrenField:string = 'children';
+  @Input() public allowClear = false;
+  @Input() public placeholder = '';
+  @Input() public idField = 'id';
+  @Input() public textField = 'text';
+  @Input() public childrenField = 'children';
 
   @Input()
-  public set items(value:any[]) {
+  public set items(value: any[]) {
     if (!value) {
       this._items = this.itemObjects = [];
     } else {
-      this._items = value.filter((item:any) => {
+      this._items = value.filter((item: any) => {
         if ((typeof item === 'string') || (typeof item === 'object' && item && item[this.textField] && item[this.idField])) {
           return item;
         }
       });
-      this.itemObjects = this._items.map((item:any) => (typeof item === 'string' ? new SelectItem(item) : new SelectItem({id: item[this.idField], text: item[this.textField], children: item[this.childrenField]})));
+      this.itemObjects = this._items.map((item: any) => (typeof item === 'string' ? new SelectItem(item) : new SelectItem({ id: item[this.idField], text: item[this.textField], children: item[this.childrenField] })));
     }
   }
 
   @Input()
-  public set disabled(value:boolean) {
+  public set disabled(value: boolean) {
     this._disabled = value;
     if (this._disabled === true) {
       this.hideOptions();
     }
   }
 
-  public get disabled():boolean {
+  public get disabled(): boolean {
     return this._disabled;
   }
 
   @Input()
-  public set active(selectedItems:any[]) {
+  public set active(selectedItems: any[]) {
     if (!selectedItems || selectedItems.length === 0) {
       this._active = [];
     } else {
-      let areItemsStrings = typeof selectedItems[0] === 'string';
+      const areItemsStrings = typeof selectedItems[0] === 'string';
 
-      this._active = selectedItems.map((item:any) => {
-        let data = areItemsStrings
+      this._active = selectedItems.map((item: any) => {
+        const data = areItemsStrings
           ? item
-          : {id: item[this.idField], text: item[this.textField]};
+          : { id: item[this.idField], text: item[this.textField] };
 
         return new SelectItem(data);
       });
     }
   }
 
-  @Output() public data:EventEmitter<any> = new EventEmitter();
-  @Output() public selected:EventEmitter<any> = new EventEmitter();
-  @Output() public removed:EventEmitter<any> = new EventEmitter();
-  @Output() public typed:EventEmitter<any> = new EventEmitter();
-  @Output() public opened:EventEmitter<any> = new EventEmitter();
+  @Output() public data: EventEmitter<any> = new EventEmitter();
+  @Output() public selected: EventEmitter<any> = new EventEmitter();
+  @Output() public removed: EventEmitter<any> = new EventEmitter();
+  @Output() public typed: EventEmitter<any> = new EventEmitter();
+  @Output() public opened: EventEmitter<any> = new EventEmitter();
 
-  public options:SelectItem[] = [];
-  public itemObjects:SelectItem[] = [];
-  public activeOption:SelectItem;
-  public element:ElementRef;
-  public  inputValue:string = '';
-  public get active():any[] {
+  public options: SelectItem[] = [];
+  public itemObjects: SelectItem[] = [];
+  public activeOption: SelectItem;
+  public element: ElementRef;
+  public inputValue = '';
+  public get active(): any[] {
     return this._active;
   }
 
-  private set optionsOpened(value:boolean){
+  private set optionsOpened(value: boolean) {
     this._optionsOpened = value;
     this.opened.emit(value);
   }
 
-  private get optionsOpened(): boolean{
+  private get optionsOpened(): boolean {
     return this._optionsOpened;
   }
 
-  protected onChange:any = Function.prototype;
-  protected onTouched:any = Function.prototype;
+  protected onChange: any = Function.prototype;
+  protected onTouched: any = Function.prototype;
 
-  private inputMode:boolean = false;
-  private _optionsOpened:boolean = false;
-  private behavior:OptionsBehavior;
-  private _items:any[] = [];
-  private _disabled:boolean = false;
-  private _active:SelectItem[] = [];
+  private inputMode = false;
+  private _optionsOpened = false;
+  private behavior: OptionsBehavior;
+  private _items: any[] = [];
+  private _disabled = false;
+  private _active: SelectItem[] = [];
 
-  public constructor(element:ElementRef, private sanitizer:DomSanitizer) {
+  public constructor(element: ElementRef, private sanitizer: DomSanitizer) {
     this.element = element;
     this.clickedOutside = this.clickedOutside.bind(this);
   }
 
-  public sanitize(html:string):SafeHtml {
+  public sanitize(html: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
@@ -121,12 +121,12 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
    * @param html select item 上的 text 文本
    *  将双行文本转为只获取第一行
    */
-  public displayValue(html: string ): string {
-    let titleReg =/<ul><li>(\S+)<\/li>/;
+  public displayValue(html: string): string {
+    const titleReg = /<li>([\s\S]*)<\/li><li/;
     return html.match(titleReg)[1];
   }
 
-  public inputEvent(e:any, isUpMode:boolean = false):void {
+  public inputEvent(e: any, isUpMode: boolean = false): void {
     // tab
     if (e.keyCode === 9) {
       return;
@@ -138,7 +138,7 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
     }
     // backspace
     if (!isUpMode && e.keyCode === 8) {
-      let el:any = this.element.nativeElement
+      const el: any = this.element.nativeElement
         .querySelector('div.ui-select-container > input');
       if (!el.value || el.value.length <= 0) {
         if (this.active.length > 0) {
@@ -194,21 +194,21 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
       e.preventDefault();
       return;
     }
-    let target = e.target || e.srcElement;
+    const target = e.target || e.srcElement;
     if (target) {
       this.inputValue = target.value;
       this.behavior.filter(new RegExp(escapeRegexp(this.inputValue), 'ig'));
       this.doEvent('typed', this.inputValue);
-    }else {
+    } else {
       this.open();
     }
   }
 
-  public ngOnInit():any {
-    this.behavior =  new GenericBehavior(this);
+  public ngOnInit(): any {
+    this.behavior = new GenericBehavior(this);
   }
 
-  public remove(item:SelectItem):void {
+  public remove(item: SelectItem): void {
     if (this._disabled === true) {
       return;
     }
@@ -217,7 +217,7 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
     this.doEvent('removed', item);
   }
 
-  public doEvent(type:string, value:any):void {
+  public doEvent(type: string, value: any): void {
     if ((this as any)[type] && value) {
       (this as any)[type].next(value);
     }
@@ -228,38 +228,38 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  public clickedOutside():void {
+  public clickedOutside(): void {
     this.inputMode = false;
     this.inputValue = '';
     this.optionsOpened = false;
   }
 
-  public get firstItemHasChildren():boolean {
+  public get firstItemHasChildren(): boolean {
     return this.itemObjects[0] && this.itemObjects[0].hasChildren();
   }
 
-  public writeValue(val:any):void {
+  public writeValue(val: any): void {
     this.active = val;
     this.data.emit(this.active);
   }
 
-  public registerOnChange(fn:(_:any) => {}):void {this.onChange = fn;}
-  public registerOnTouched(fn:() => {}):void {this.onTouched = fn;}
+  public registerOnChange(fn: (_: any) => {}): void { this.onChange = fn; }
+  public registerOnTouched(fn: () => {}): void { this.onTouched = fn; }
 
-  protected matchClick(e:any):void {
+  protected matchClick(e: any): void {
     if (this._disabled === true) {
       return;
     }
     this.remove(this._active[0]);
     this.inputValue = '';
     this.inputMode = !this.inputMode;
-    if (this.inputMode === true ) {
+    if (this.inputMode === true) {
       this.focusToInput();
       this.open();
     }
   }
 
-  protected  mainClick(event:any):void {
+  protected mainClick(event: any): void {
     if (this.inputMode === true || this._disabled === true) {
       return;
     }
@@ -279,21 +279,21 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
       return;
     }
     this.inputMode = true;
-    let value = String
+    const value = String
       .fromCharCode(96 <= event.keyCode && event.keyCode <= 105 ? event.keyCode - 48 : event.keyCode)
       .toLowerCase();
     this.focusToInput(value);
     this.open();
-    let target = event.target || event.srcElement;
+    const target = event.target || event.srcElement;
     target.value = value;
     this.inputEvent(event);
   }
 
-  protected  selectActive(value:SelectItem):void {
+  protected selectActive(value: SelectItem): void {
     this.activeOption = value;
   }
 
-  protected  isActive(value:SelectItem):boolean {
+  protected isActive(value: SelectItem): boolean {
     return this.activeOption.id === value.id;
   }
 
@@ -302,9 +302,9 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
     this.remove(value);
   }
 
-  private focusToInput(value:string = ''):void {
+  private focusToInput(value: string = ''): void {
     setTimeout(() => {
-      let el = this.element.nativeElement.querySelector('div.ui-select-container > input');
+      const el = this.element.nativeElement.querySelector('div.ui-select-container > input');
       if (el) {
         el.focus();
         el.value = value;
@@ -312,9 +312,9 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
     }, 0);
   }
 
-  private open():void {
+  private open(): void {
     this.options = this.itemObjects
-      .filter((option:SelectItem) =>  true);
+      .filter((option: SelectItem) => true);
 
     if (this.options.length > 0) {
       this.behavior.first();
@@ -322,16 +322,16 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
     this.optionsOpened = true;
   }
 
-  private hideOptions():void {
+  private hideOptions(): void {
     this.inputMode = false;
     this.optionsOpened = false;
   }
 
-  private selectActiveMatch():void {
+  private selectActiveMatch(): void {
     this.selectMatch(this.activeOption);
   }
 
-  private selectMatch(value:SelectItem, e:Event = void 0):void {
+  private selectMatch(value: SelectItem, e: Event = void 0): void {
     this.inputValue = '';
     if (e) {
       e.stopPropagation();
