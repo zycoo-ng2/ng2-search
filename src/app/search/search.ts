@@ -88,19 +88,19 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
     return this._active;
   }
 
-  private set optionsOpened(value: boolean) {
+  public set optionsOpened(value: boolean) {
     this._optionsOpened = value;
     this.opened.emit(value);
   }
 
-  private get optionsOpened(): boolean {
+  public get optionsOpened(): boolean {
     return this._optionsOpened;
   }
 
   protected onChange: any = Function.prototype;
   protected onTouched: any = Function.prototype;
 
-  private inputMode = false;
+  public inputMode = false;
   private _optionsOpened = false;
   private behavior: OptionsBehavior;
   private _items: any[] = [];
@@ -259,7 +259,7 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  protected mainClick(event: any): void {
+  public mainClick(event: any): void {
     if (this.inputMode === true || this._disabled === true) {
       return;
     }
