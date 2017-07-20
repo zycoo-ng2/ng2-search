@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SelectComponent } from './select';
+import { SelectComponent } from './search';
 import { HighlightPipe } from './lib/select-pipes';
 import { OffClickDirective } from './lib/off-click';
 
@@ -10,5 +10,4 @@ import { OffClickDirective } from './lib/off-click';
   declarations: [SelectComponent, HighlightPipe, OffClickDirective],
   exports: [SelectComponent, HighlightPipe, OffClickDirective]
 })
-export class SelectModule {
-}
+export class SearchModule { }

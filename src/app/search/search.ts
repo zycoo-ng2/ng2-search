@@ -10,7 +10,7 @@ import { OptionsBehavior } from './lib/select-interfaces';
 import { escapeRegexp } from './util/common';
 
 @Component({
-  selector: 'ng-select',
+  selector: 'app-ng-search',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -20,8 +20,8 @@ import { escapeRegexp } from './util/common';
       multi: true
     }
   ],
-  styleUrls: ['./select.css'],
-  templateUrl: './select.html'
+  styleUrls: ['./search.css'],
+  templateUrl: './search.html'
 })
 export class SelectComponent implements OnInit, ControlValueAccessor {
   @Input() public allowClear = false;
@@ -331,11 +331,11 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
     this.selectMatch(this.activeOption);
   }
 
-  private selectMatch(value: SelectItem, e: Event = void 0): void {
+  public selectMatch(value: SelectItem, e: Event = void 0): void {
     this.inputValue = '';
     if (e) {
-      e.stopPropagation();
-      e.preventDefault();
+      // e.stopPropagation();
+      //  e.preventDefault();
     }
     if (this.options.length <= 0) {
       return;

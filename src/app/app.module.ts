@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { TabsModule, ButtonsModule } from 'ngx-bootstrap';
-import { SelectModule } from './select/select.module'
+import { SearchModule } from './search/search.module'
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    SelectModule,
+    SearchModule,
     TabsModule.forRoot(),
     ButtonsModule.forRoot(),
   ],

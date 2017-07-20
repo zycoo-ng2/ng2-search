@@ -3,7 +3,7 @@ import { OptionsBehavior } from '../lib/select-interfaces';
 import { SelectItem } from '../lib/select-item';
 import { stripTags } from '../lib/select-pipes';
 
-import { SelectComponent } from '../select';
+import { SelectComponent } from '../search';
 
 export class GenericBehavior extends Behavior implements OptionsBehavior {
   public constructor(actor: SelectComponent) {

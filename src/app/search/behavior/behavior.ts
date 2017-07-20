@@ -1,7 +1,7 @@
 import { OptionsBehavior } from '../lib/select-interfaces';
 import { SelectItem } from '../lib/select-item';
 
-import { SelectComponent } from '../select';
+import { SelectComponent } from '../search';
 
 export class Behavior {
   public optionsMap: Map<string, number> = new Map<string, number>();

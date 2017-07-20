@@ -20,8 +20,8 @@
     <tabset>
       <tab heading="Search">
         <div style="width: 300px; margin-bottom: 20px;">
-          <ng-select [items]="items" (data)="refreshValue($event)" (selected)="selected($event)" placeholder="No city selected">
-          </ng-select>
+          <app-ng-search [items]="items" (data)="refreshValue($event)" (selected)="selected($event)" placeholder="No city selected">
+          </app-ng-search>
           <p></p>
           <pre>{{value.text}}</pre>
         </div>
@@ -35,5 +35,3 @@
     <p class="text-muted text-center"><a href="https://github.com/valor-software/ng2-select">ng2-select</a> is maintained by <a href="https://github.com/valor-software">valor-software</a>.</p>
   </div>
 </footer>-->
-
-
