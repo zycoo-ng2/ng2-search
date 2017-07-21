@@ -26,9 +26,11 @@ import { escapeRegexp } from './util/common';
 export class SelectComponent implements OnInit, ControlValueAccessor {
   @Input() public allowClear = false;
   @Input() public placeholder = '';
+  @Input() public title = 'Search';
   @Input() public idField = 'id';
   @Input() public textField = 'text';
   @Input() public childrenField = 'children';
+  @Input() public isCollapsed = false;
 
   @Input()
   public set items(value: any[]) {

@@ -1,10 +1,10 @@
 <div tabindex="0" (keyup)="mainClick($event)" [offClick]="clickedOutside" class="ui-select-container dropdown open show"
   style="height:42px;">
-  <div class="ui-select-match" *ngIf="!inputMode" style="height: inherit">
+  <div class="ui-select-match" *ngIf="!inputMode">
     <div tabindex="-1" class="ui-select-toggle" style="outline: 0; height: inherit;" (click)="matchClick($event)">
-      <div *ngIf="active.length <= 0" style="display: flex;  padding-top: 16px; margin-left: 18px; color: white; height: inherit;">
+      <div *ngIf="active.length <= 0" style="display: flex;  padding-top: 16px; margin-left: 18px; color: white; cursor: pointer;">
         <i class="fa fa-search"></i>
-        <label style="margin-left: 18px; font-size: 14px;">Search</label>
+        <span style="margin-left: 18px; font-size: 14px;" *ngIf="!isCollapsed">{{title}}</span>
       </div>
       <div *ngIf="active.length> 0" style="display: flex; justify-content:space-between; align-items:center; background-color: white; height: inherit;">
         <span class="ui-select-match-text" style="padding-left: 16px;" [ngClass]="{'ui-select-allow-clear': allowClear && active.length > 0}"
