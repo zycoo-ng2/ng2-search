@@ -2,7 +2,7 @@
   style="height:34px;">
   <div class="ui-select-match" *ngIf="!inputMode || isCollapsed">
     <div tabindex="-1" class="ui-select-toggle" (click)="matchClick($event)">
-      <div *ngIf="active.length <= 0" style="display: flex;  padding-top: 16px; margin-left: 18px; color: white; cursor: pointer;">
+      <div *ngIf="active.length <= 0" class="searchColor">
         <i class="fa fa-search"></i>
         <span class="ui-select-title" *ngIf="!isCollapsed">{{title}}</span>
       </div>
