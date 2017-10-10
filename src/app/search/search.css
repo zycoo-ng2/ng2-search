@@ -79,7 +79,8 @@
   }
 
   .ui-select-title {
-    margin-left: 22px;
+    margin-left: 16px;
+    padding-left: 6px;
     font-size: 14px;
     line-height: 32px;
   }
