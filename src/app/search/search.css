@@ -1,5 +1,5 @@
   .searchColor {
-    display: flex;  padding-top: 16px; margin-left: 18px; color: #79838d; cursor: pointer;
+    display: flex; margin-left: 18px; color: #79838d; cursor: pointer;
   }
   .searchColor:hover {
     color: #fff;
@@ -81,4 +81,5 @@
   .ui-select-title {
     margin-left: 22px;
     font-size: 14px;
+    line-height: 32px;
   }
